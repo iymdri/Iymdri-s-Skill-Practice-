@@ -4,656 +4,806 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f6fa">
 <title>IYМDRI's Skill Practice</title>
+
 <style>
 :root {
-  --bg:#f3f6fb;--card:#fff;--text:#17243a;--muted:#68758a;
-  --navy:#142b50;--blue:#2864a5;--line:#dce4ef;--soft:#eaf1fa;
+  --bg:#f5f6fa;
+  --surface:#ffffff;
+  --text:#24283b;
+  --muted:#73798b;
+  --primary:#5965c9;
+  --primary-soft:#edf0ff;
+  --border:#e7e9f0;
+  --shadow:0 5px 20px rgba(30,35,70,.06);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.5}
-body.dark{--bg:#101827;--card:#1c293c;--text:#f3f6fb;--muted:#aab7ca;--navy:#0b1422;--blue:#7db5ff;--line:#35445a;--soft:#263750}
-body.pastel{--bg:#fff0f6;--card:#fff;--text:#443447;--muted:#806f83;--navy:#9b6b91;--blue:#b477a7;--line:#f0d9e9;--soft:#fbe6f2}
-body.pastel[data-colour="lavender"]{--bg:#f2efff;--navy:#7766a8;--blue:#8c7bc0;--line:#e2dcf7;--soft:#ebe6ff}
-body.pastel[data-colour="mint"]{--bg:#eaf8f1;--navy:#43866c;--blue:#5caa89;--line:#d4eee1;--soft:#ddf3e8}
-body.pastel[data-colour="yellow"]{--bg:#fff9e7;--navy:#a18438;--blue:#b99b4e;--line:#f1e8c9;--soft:#fff2c9}
-body.pastel[data-colour="blue"]{--bg:#edf6ff;--navy:#4b7ca8;--blue:#6398c7;--line:#d8e9f8;--soft:#e1f0ff}
-body.pastel[data-colour="peach"]{--bg:#fff1e9;--navy:#a96d52;--blue:#c18465;--line:#f4dfd3;--soft:#ffe7da}
-header{background:var(--navy);color:white;padding:18px}
-.header-inner{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header h1{font-size:22px;margin:0}
-header p{font-size:12px;margin:3px 0 0}
-nav{max-width:1100px;margin:12px auto 0;display:flex;gap:7px;flex-wrap:wrap}
-nav button{background:transparent;color:white;border:1px solid #ffffff55;padding:9px 13px}
-nav button.active{background:#ffffff30}
-main{max-width:1100px;margin:22px auto;padding:0 16px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:20px;margin-bottom:18px}
-h2{font-size:21px;margin:0 0 12px}
-h3{font-size:17px;margin:0 0 8px}
-p{margin:7px 0}
-.muted{color:var(--muted);font-size:13px}
-button{background:var(--navy);color:white;border:0;padding:11px 15px;border-radius:9px;cursor:pointer;font-size:14px;min-height:42px}
-button.secondary{background:var(--soft);color:var(--text);border:1px solid var(--line)}
-button.outline{background:transparent;color:var(--blue);border:1px solid var(--blue)}
-input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--text);font-size:14px;margin:5px 0 12px}
-label{font-size:13px;font-weight:bold;display:block}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.row>*{flex:1}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.skill-card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px}
-.skill-card .row{margin-top:12px}
-.skill-card button{flex:1}
-.tag{display:inline-block;background:var(--soft);color:var(--blue);padding:3px 9px;border-radius:20px;font-size:11px}
-.progress{height:8px;background:var(--soft);border-radius:20px;overflow:hidden;margin:9px 0}
-.progress span{display:block;height:100%;background:var(--blue)}
-.stat{background:var(--soft);padding:14px;border-radius:12px;text-align:center}
-.stat strong{display:block;font-size:23px}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background .2s,color .2s;
+}
+body.theme-navy{
+  --bg:#eaf0f8;--surface:#fff;--text:#172b46;
+  --muted:#63748a;--primary:#234e82;
+  --primary-soft:#e2ebf7;--border:#d7e0ed;
+}
+body.theme-dark{
+  --bg:#171923;--surface:#222633;--text:#f0f1f6;
+  --muted:#a8afc0;--primary:#9ba7ff;
+  --primary-soft:#30364e;--border:#373d4d;
+  --shadow:0 5px 20px rgba(0,0,0,.2);
+}
+body.theme-cute-pastel{
+  --bg:#fff5f8;--surface:#fff;--text:#493847;
+  --muted:#927b8c;--primary:#c36c9d;
+  --primary-soft:#fce8f2;--border:#f2dce8;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--primary);outline-offset:2px;
+}
 .hidden{display:none!important}
-.swatches{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
-.swatch{width:38px;height:38px;border-radius:50%;border:3px solid var(--line);padding:0}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-#toast{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#17243a;color:white;padding:10px 16px;border-radius:9px;display:none}
-@media(max-width:600px){main{padding:0 10px}.panel{padding:15px}nav button{font-size:12px;padding:8px}.grid{grid-template-columns:1fr}}
-
-/* Responsive layout support: preserves the existing visual design. */
-html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-body{min-width:320px; overflow-x:hidden;}
-main,.header-inner,nav{width:100%;}
-.panel,.skill-card{min-width:0;}
-input,select,textarea,button{max-width:100%;}
-button{touch-action:manipulation;}
-nav{padding:0 16px;}
-@media(min-width:1200px){main,.header-inner,nav{max-width:1100px;} }
-@media(max-width:800px){
- .header-inner{align-items:flex-start;}
- nav{overflow-x:auto;flex-wrap:nowrap;padding:0 10px 6px;scrollbar-width:thin;}
- nav button{flex:0 0 auto;white-space:nowrap;}
- main{margin:14px auto;padding:0 12px;}
- .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));}
+.container{width:min(1120px,92%);margin:auto}
+header{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:25px 0 18px;
 }
-@media(max-width:600px){
- header{padding:14px 12px;}
- header h1{font-size:20px;}
- main{padding:0 10px;margin:12px auto;}
- .panel{padding:14px;border-radius:12px;}
- .row{align-items:stretch;}
- .row>*{min-width:0;}
- .row button{min-width:0;}
- .grid{grid-template-columns:minmax(0,1fr);}
- input,select,textarea{font-size:16px;}
- button{min-height:44px;}
- .stat{padding:12px;}
+.brand{text-align:center}
+.brand h1{font-size:clamp(25px,4vw,36px);margin:0 0 8px}
+.brand p{margin:0;color:var(--muted);font-size:15px}
+nav{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin-top:22px;
 }
-@media(orientation:landscape) and (max-height:500px){header{padding:10px 14px;}main{margin:10px auto;}}
-
+.nav-btn{
+  border:0;background:transparent;color:var(--muted);
+  padding:10px 17px;border-radius:9px;font-weight:600;
+}
+.nav-btn.active,.nav-btn:hover{
+  background:var(--primary-soft);color:var(--primary);
+}
+main{padding:34px 0 55px;min-height:65vh}
+h2{font-size:25px;margin:0 0 9px}
+.subtitle{color:var(--muted);margin:0 0 25px;line-height:1.6}
+.toolbar{
+  display:grid;grid-template-columns:1fr 190px;gap:12px;
+  margin-bottom:23px;
+}
+input,select,textarea{
+  background:var(--surface);color:var(--text);
+  border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;width:100%;
+}
+.skill-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+}
+.skill-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:20px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;min-height:205px;
+}
+.skill-card h3{font-size:18px;margin:0 0 9px}
+.skill-card p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 15px}
+.difficulty{
+  font-size:12px;text-transform:lowercase;
+  color:var(--primary);background:var(--primary-soft);
+  border-radius:20px;padding:6px 10px;align-self:flex-start;
+}
+.practice-count{color:var(--muted);font-size:13px;margin:13px 0}
+.card-actions{display:flex;gap:9px;margin-top:auto}
+.primary-btn,.secondary-btn,.favourite-btn{
+  border:0;border-radius:9px;padding:10px 15px;font-weight:600;
+}
+.primary-btn{background:var(--primary);color:white}
+.secondary-btn{background:var(--primary-soft);color:var(--primary)}
+.favourite-btn{
+  background:var(--surface);color:var(--muted);
+  border:1px solid var(--border);flex:1;
+}
+.favourite-btn.selected{color:var(--primary);border-color:var(--primary)}
+.primary-btn:hover,.secondary-btn:hover,.favourite-btn:hover{filter:brightness(.96)}
+.panel{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:22px;margin-bottom:17px;
+  box-shadow:var(--shadow);
+}
+.panel h3{margin:0 0 14px}
+.stat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
+}
+.stat{background:var(--primary-soft);padding:18px;border-radius:12px}
+.stat strong{font-size:27px;display:block;color:var(--primary);margin-bottom:5px}
+.stat span{font-size:13px;color:var(--muted)}
+.list-row{
+  display:flex;justify-content:space-between;gap:15px;
+  padding:13px 0;border-bottom:1px solid var(--border);
+}
+.list-row:last-child{border-bottom:0}
+.small-text{font-size:13px;color:var(--muted)}
+.form-field{margin:15px 0}
+.form-field label{display:block;margin-bottom:7px;font-weight:600;font-size:14px}
+textarea{min-height:110px;resize:vertical}
+footer{
+  border-top:1px solid var(--border);background:var(--surface);
+  text-align:center;padding:23px 10px;color:var(--muted);font-size:13px;
+}
+.welcome-screen{
+  min-height:100vh;display:grid;place-items:center;padding:22px;
+}
+.welcome-card{
+  width:min(480px,100%);background:var(--surface);
+  border:1px solid var(--border);border-radius:18px;
+  padding:35px;box-shadow:var(--shadow);
+}
+.welcome-card h1{text-align:center;font-size:29px;margin:0 0 10px}
+.welcome-card>p{text-align:center;color:var(--muted);margin:0 0 28px}
+.welcome-card .primary-btn{width:100%;padding:13px;margin-top:10px}
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(10,15,30,.55);
+  display:grid;place-items:center;padding:18px;z-index:10;
+}
+.modal{
+  background:var(--surface);color:var(--text);
+  border-radius:16px;padding:25px;width:min(520px,100%);
+  max-height:90vh;overflow:auto;
+}
+.modal h2{margin-bottom:14px}
+.modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.progress-track{
+  height:9px;background:var(--primary-soft);
+  border-radius:20px;overflow:hidden;margin-top:9px;
+}
+.progress-fill{height:100%;background:var(--primary);width:0}
+.empty{color:var(--muted);padding:18px 0}
+@media(max-width:850px){
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  main{padding-top:25px}
+  .toolbar{grid-template-columns:1fr}
+  .skill-grid{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:1fr}
+  .welcome-card{padding:25px}
+  nav{gap:3px}
+  .nav-btn{padding:9px 11px;font-size:13px}
+}
 </style>
 </head>
+
 <body>
-<header>
-<div class="header-inner">
-<div><h1>IYМDRI's Skill Practice</h1><p>Learn something new. Practise every day.</p></div>
-<div id="hello"></div>
-</div>
-<nav id="navigation" class="hidden">
-<button data-page="home" class="active">Home</button>
-<button data-page="library">Library</button>
-<button data-page="dashboard">Dashboard</button>
-<button data-page="profile">Profile</button>
-<button data-page="settings">Settings</button>
-</nav>
-</header>
 
-<main>
-<section id="welcome" class="panel">
-<h2>Welcome to Skill Practice</h2>
-<p class="muted">Create your practice profile. No account or password needed.</p>
-<label>Display name (optional)</label>
-<input id="newName" placeholder="Choose any nickname">
-<label>Country</label>
-<input id="newCountrySearch" type="search" placeholder="Search all 195 countries..." autocomplete="off">
-<select id="newCountry"><option value="">Choose your country</option></select>
-<label>Country language(s) / preferred language</label>
-<input id="newLanguageSearch" type="search" placeholder="Search 195+ languages..." autocomplete="off">
-<select id="newLanguage"><option value="en">English</option></select><p id="newLanguageInfo" class="muted">Choose a country to see its official language(s).</p>
+<!-- First-visit welcome page -->
+<section id="welcomeScreen" class="welcome-screen hidden">
+  <div class="welcome-card">
+    <h1>IYМDRI's Skill Practice</h1>
+    <p>Learn something new. Practise every day.</p>
 
-<button onclick="enterWebsite()">Start practising</button>
-<p class="muted">No login required · Free to use · From IYМDRI</p>
+    <div class="form-field">
+      <label for="welcomeName">Display Name</label>
+      <input id="welcomeName" maxlength="40" placeholder="Enter your display name">
+    </div>
+
+    <div class="form-field">
+      <label for="welcomeCountry">Country</label>
+      <select id="welcomeCountry">
+        <option value="">Select your country</option>
+      </select>
+    </div>
+
+    <button class="primary-btn" onclick="getStarted()">Get Started</button>
+    <p class="small-text" style="margin-top:18px">No login required. Free to use.</p>
+  </div>
 </section>
 
-<section id="home" class="page hidden">
-<div class="panel">
-<h2>Choose a skill to practise</h2>
-<p class="muted">Explore 20 skills and improve at your own pace.</p>
-<div class="row">
-<div><label>Search skills</label><input id="searchHome" placeholder="Search..." oninput="renderSkills()"></div>
-<div><label>Difficulty</label><select id="levelHome" onchange="renderSkills()"><option value="all">All levels</option><option>beginner</option><option>intermediate</option><option>advanced</option></select></div>
-</div>
-<div id="skillGrid" class="grid"></div>
-</div>
-</section>
+<!-- Main website -->
+<div id="website" class="hidden">
+  <header>
+    <div class="container">
+      <div class="brand">
+        <h1>IYМDRI's Skill Practice</h1>
+        <p>Learn something new. Practise every day.</p>
+      </div>
+      <nav aria-label="Main navigation">
+        <button class="nav-btn active" data-tab="home" onclick="switchTab('home')">Home</button>
+        <button class="nav-btn" data-tab="library" onclick="switchTab('library')">Library</button>
+        <button class="nav-btn" data-tab="dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="nav-btn" data-tab="profile" onclick="switchTab('profile')">Profile</button>
+        <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')">Settings</button>
+      </nav>
+    </div>
+  </header>
 
-<section id="library" class="page hidden">
-<div class="panel">
-<h2>Skill Library</h2>
-<p class="muted">Find skills, favourites and recently played activities.</p>
-<label>Search</label><input id="searchLibrary" placeholder="Search skills..." oninput="renderLibrary()">
-<label>Difficulty</label>
-<select id="levelLibrary" onchange="renderLibrary()"><option value="all">All levels</option><option>beginner</option><option>intermediate</option><option>advanced</option></select>
-<div class="row">
-<button class="secondary" onclick="libraryMode='all';renderLibrary()">All skills</button>
-<button class="secondary" onclick="libraryMode='favourites';renderLibrary()">Favourites</button>
-<button class="secondary" onclick="libraryMode='recent';renderLibrary()">Recently played</button>
-</div>
-<div id="libraryGrid" class="grid"></div>
-</div>
-</section>
+  <main class="container">
 
-<section id="dashboard" class="page hidden">
-<div class="panel">
-<h2>Dashboard</h2>
-<div class="grid">
-<div class="stat"><strong id="completed">0</strong>Activities completed</div>
-<div class="stat"><strong id="score">0</strong>Total score</div>
-<div class="stat"><strong id="days">0</strong>Practice days</div>
-<div class="stat"><strong id="wpm">0</strong>Best WPM</div>
-</div>
-<h3 style="margin-top:20px">Your progress</h3>
-<div id="progressList"></div>
-<h3>Achievements</h3>
-<div id="achievements"></div>
-<h3 style="margin-top:20px">Daily challenge</h3>
-<p>Try a vocabulary challenge today.</p>
-<button onclick="startSkill(2)">Start daily challenge</button>
-</div>
-<div class="panel"><h3>Practice history</h3><div id="historyList" class="muted">No activities yet.</div></div>
-</section>
+    <section id="homePage">
+      <h2>Choose a skill to practise</h2>
+      <p class="subtitle">Explore 20 skills and improve at your own pace.</p>
+      <div class="toolbar">
+        <input id="homeSearch" type="search" placeholder="Search skills" oninput="renderSkills('home')">
+        <select id="homeDifficulty" onchange="renderSkills('home')" aria-label="Filter by difficulty">
+          <option value="all">All levels</option>
+          <option value="beginner">beginner</option>
+          <option value="intermediate">intermediate</option>
+          <option value="advanced">advanced</option>
+        </select>
+      </div>
+      <div id="homeSkills" class="skill-grid"></div>
+    </section>
 
-<section id="profile" class="page hidden">
-<div class="panel">
-<h2>Profile</h2>
-<label>Display name</label><input id="profileName" placeholder="Your nickname">
-<label>Country</label>
-<input id="profileCountrySearch" type="search" placeholder="Search all 195 countries..." autocomplete="off">
-<select id="profileCountry"></select>
-<label>Country language(s) / preferred language</label>
-<input id="profileLanguageSearch" type="search" placeholder="Search 195+ languages..." autocomplete="off">
-<select id="profileLanguage"><option value="">Select a country first</option></select>
-<p id="profileLanguageInfo" class="muted">Choose a country to see its language(s).</p>
-<button onclick="saveProfile()">Save profile</button>
-</div>
-</section>
+    <section id="libraryPage" class="hidden">
+      <h2>Skill Library</h2>
+      <p class="subtitle">Browse your skills and find an activity to practise.</p>
+      <div class="toolbar">
+        <input id="librarySearch" type="search" placeholder="Search skills" oninput="renderSkills('library')">
+        <select id="libraryDifficulty" onchange="renderSkills('library')" aria-label="Filter by difficulty">
+          <option value="all">All levels</option>
+          <option value="beginner">beginner</option>
+          <option value="intermediate">intermediate</option>
+          <option value="advanced">advanced</option>
+        </select>
+      </div>
+      <div class="panel">
+        <h3>Favourites</h3>
+        <div id="favouritesList"></div>
+      </div>
+      <div class="panel">
+        <h3>Recently Played</h3>
+        <div id="recentList"></div>
+      </div>
+      <div id="librarySkills" class="skill-grid"></div>
+    </section>
 
-<section id="settings" class="page hidden">
-<div class="panel">
-<h2>Settings</h2>
-<label>Default difficulty</label>
-<select id="difficulty"><option>beginner</option><option>intermediate</option><option>advanced</option></select>
-<label>Challenge mode</label>
-<select id="challengeMode"><option>normal</option><option>timed</option></select>
-<label>Timer length (seconds)</label><input id="timerLength" type="number" min="10" max="300" value="60">
-<label><input id="largeText" type="checkbox" style="width:auto"> Large text</label>
-<h3>Appearance</h3>
-<div class="row">
-<button class="secondary" onclick="setTheme('original')">Original Navy</button>
-<button class="secondary" onclick="setTheme('dark')">Dark Theme</button>
-<button class="secondary" onclick="setTheme('pastel')">Cute Pastel</button>
-</div>
-<p>Choose a pastel colour</p>
-<div class="swatches">
-<button class="swatch" style="background:#f8dce9" title="Soft Pink" onclick="setPastel('pink')"></button>
-<button class="swatch" style="background:#e2dcf7" title="Lavender" onclick="setPastel('lavender')"></button>
-<button class="swatch" style="background:#d4eee1" title="Mint" onclick="setPastel('mint')"></button>
-<button class="swatch" style="background:#fff2c9" title="Butter Yellow" onclick="setPastel('yellow')"></button>
-<button class="swatch" style="background:#e1f0ff" title="Baby Blue" onclick="setPastel('blue')"></button>
-<button class="swatch" style="background:#ffe7da" title="Peach" onclick="setPastel('peach')"></button>
-</div>
-<label>Language</label>
-<select id="language"><option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option></select>
-<button onclick="saveSettings()">Save settings</button>
-</div>
-<div class="panel">
-<h2>Personal notes</h2>
-<textarea id="notes" rows="4" placeholder="Write your learning notes..."></textarea>
-<button onclick="saveNotes()">Save notes</button>
-</div>
-<div class="panel">
-<h2>Visitor statistics</h2>
-<p>This version counts visits on this device only. A genuine worldwide visitor count and country breakdown need an online database.</p>
-<div class="stat"><strong id="visits">1</strong>Visits on this device</div>
-<p class="muted">Country information is based on the visitor's selected profile country.</p>
-</div>
-<div class="panel">
-<h2>Reset progress</h2>
-<p class="muted">Clear your saved practice results on this device.</p>
-<button class="outline" onclick="resetProgress()">Reset progress</button>
-</div>
-</section>
+    <section id="dashboardPage" class="hidden">
+      <h2>Dashboard</h2>
+      <p class="subtitle">Keep track of your learning progress.</p>
+      <div class="stat-grid">
+        <div class="stat"><strong id="statSessions">0</strong><span>Practice sessions</span></div>
+        <div class="stat"><strong id="statSkills">0</strong><span>Skills practised</span></div>
+        <div class="stat"><strong id="statFavourites">0</strong><span>Favourite skills</span></div>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <h3>Skill Progress</h3>
+        <div id="progressList"></div>
+      </div>
+      <div class="panel">
+        <h3>Practice History</h3>
+        <div id="historyList"></div>
+      </div>
+      <div class="panel">
+        <h3>My Notes</h3>
+        <textarea id="notes" placeholder="Write your learning notes here..."></textarea>
+        <button class="primary-btn" style="margin-top:10px" onclick="saveNotes()">Save Notes</button>
+        <span id="notesMessage" class="small-text"></span>
+      </div>
+    </section>
 
-<section id="activity" class="page hidden">
-<div class="panel">
-<div class="row"><div><h2 id="activityTitle">Practice</h2><p id="activityDescription" class="muted"></p></div><button class="secondary" onclick="goHome()">Back to skills</button></div>
-<div id="activityArea"></div>
+    <section id="profilePage" class="hidden">
+      <h2>Profile</h2>
+      <p class="subtitle">Manage your personal profile.</p>
+      <div class="panel">
+        <div class="form-field">
+          <label for="profileName">Display Name</label>
+          <input id="profileName" maxlength="40">
+        </div>
+        <div class="form-field">
+          <label for="profileCountry">Country</label>
+          <select id="profileCountry"></select>
+        </div>
+        <button class="primary-btn" onclick="saveProfile()">Save Profile</button>
+        <p id="profileMessage" class="small-text"></p>
+      </div>
+    </section>
+
+    <section id="settingsPage" class="hidden">
+      <h2>Settings</h2>
+      <p class="subtitle">Customise your website experience.</p>
+
+      <div class="panel">
+        <h3>Appearance</h3>
+        <div class="form-field">
+          <label for="themeSelect">Choose a colour theme</label>
+          <select id="themeSelect" onchange="setTheme(this.value)">
+            <option value="theme-original">Original</option>
+            <option value="theme-navy">Navy</option>
+            <option value="theme-dark">Dark</option>
+            <option value="theme-cute-pastel">Cute Pastel</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Worldwide Visitor Statistics</h3>
+        <p class="small-text">This count is shared through the online database. It represents recorded page visits, not verified unique people.</p>
+        <div class="stat" style="margin-top:15px">
+          <strong id="visitorCount">Not connected</strong>
+          <span>Total recorded website visits worldwide</span>
+        </div>
+        <button class="secondary-btn" style="margin-top:13px" onclick="refreshVisitorCount()">Refresh count</button>
+        <p id="visitorMessage" class="small-text"></p>
+      </div>
+
+      <div class="panel">
+        <h3>Personal Data</h3>
+        <p class="small-text">Your profile, favourites, practice history and notes are saved in this browser.</p>
+        <button class="secondary-btn" onclick="resetPersonalData()">Reset personal data</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    No login required · Free to use · From IYМDRI
+  </footer>
 </div>
-</section>
-</main>
-<footer>No login required · Free to use · From IYМDRI</footer>
-<div id="toast"></div>
+
+<!-- Practice window -->
+<div id="practiceModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="practiceTitle">
+  <div class="modal">
+    <h2 id="practiceTitle">Practice</h2>
+    <p id="practiceDescription" class="subtitle"></p>
+    <div id="practiceContent"></div>
+    <div class="modal-actions">
+      <button class="primary-btn" id="completePractice" onclick="completePractice()">Finish Practice</button>
+      <button class="secondary-btn" onclick="closePractice()">Close</button>
+    </div>
+    <p id="practiceMessage" class="small-text"></p>
+  </div>
+</div>
 
 <script>
-const countryData = [["Afghanistan",["Dari","Pashto"]],["Albania",["Albanian"]],["Algeria",["Arabic"]],["Andorra",["Catalan"]],["Angola",["Portuguese"]],["Antigua and Barbuda",["English"]],["Argentina",["Spanish","Guarani"]],["Armenia",["Armenian","Russian"]],["Australia",["English"]],["Austria",["German"]],["Azerbaijan",["Azerbaijani","Armenian"]],["Bahamas",["English"]],["Bahrain",["Arabic"]],["Bangladesh",["Bengali"]],["Barbados",["English"]],["Belarus",["Belarusian","Russian"]],["Belgium",["Dutch","French","German"]],["Belize",["English","Spanish"]],["Benin",["French"]],["Bhutan",["Dzongkha"]],["Bolivia",["Spanish","Aymara","Quechua","Guarani","and 33 other Indigenous languages"]],["Bosnia and Herzegovina",["Bosnian","Croatian","Serbian"]],["Botswana",["English","Tswana"]],["Brazil",["Portuguese"]],["Brunei",["Malay (macrolanguage)"]],["Bulgaria",["Bulgarian"]],["Burkina Faso",["French","Fulah"]],["Burundi",["French","Rundi"]],["Cabo Verde",["Portuguese"]],["Cambodia",["Khmer"]],["Cameroon",["English","French"]],["Canada",["English","French"]],["Central African Republic",["French","Sango"]],["Chad",["French","Arabic"]],["Chile",["Spanish"]],["China",["Chinese"]],["Colombia",["Spanish"]],["Comoros",["Arabic","French"]],["Congo",["French"]],["Costa Rica",["Spanish"]],["Côte d’Ivoire",["French"]],["Croatia",["Croatian"]],["Cuba",["Spanish"]],["Cyprus",["Modern Greek (1453-)","Turkish","Armenian"]],["Czechia",["Czech"]],["Democratic Republic of the Congo",["French","Lingala","Kikongo","Swahili","Tshiluba"]],["Denmark",["Danish"]],["Djibouti",["French","Arabic"]],["Dominica",["English"]],["Dominican Republic",["Spanish"]],["Ecuador",["Spanish"]],["Egypt",["Arabic"]],["El Salvador",["Spanish"]],["Equatorial Guinea",["Spanish","French"]],["Eritrea",["Tigrinya","Arabic","English"]],["Estonia",["Estonian"]],["Eswatini",["Swazi","English"]],["Ethiopia",["Amharic"]],["Fiji",["English","Fijian","Hindi","Urdu"]],["Finland",["Finnish","Swedish"]],["France",["French"]],["Gabon",["French"]],["Gambia",["English"]],["Georgia",["Georgian"]],["Germany",["German"]],["Ghana",["English"]],["Greece",["Modern Greek (1453-)"]],["Grenada",["English"]],["Guatemala",["Spanish"]],["Guinea",["French","Fulah"]],["Guinea-Bissau",["Portuguese"]],["Guyana",["English"]],["Haiti",["French","Haitian"]],["Honduras",["Spanish"]],["Hungary",["Hungarian"]],["Iceland",["Icelandic"]],["India",["Hindi","English","Assamese","Bengali","Bodo","Dogri","Gujarati","Kannada","Kashmiri","Konkani","Maithili","Malayalam","Manipuri","Marathi","Nepali","Odia","Punjabi","Sanskrit","Santali","Sindhi","Tamil","Telugu","Urdu"]],["Indonesia",["Indonesian"]],["Iran",["Persian"]],["Iraq",["Arabic","Kurdish"]],["Ireland",["Irish","English"]],["Israel",["Hebrew","Arabic"]],["Italy",["Italian"]],["Jamaica",["English"]],["Japan",["Japanese"]],["Jordan",["Arabic"]],["Kazakhstan",["Kazakh","Russian"]],["Kenya",["English","Swahili"]],["Kiribati",["English"]],["Kuwait",["Arabic"]],["Kyrgyzstan",["Kirghiz","Russian"]],["Laos",["Lao"]],["Latvia",["Latvian"]],["Lebanon",["Arabic","French"]],["Lesotho",["English","Southern Sotho"]],["Liberia",["English"]],["Libya",["Arabic"]],["Liechtenstein",["German"]],["Lithuania",["Lithuanian"]],["Luxembourg",["French","German","Luxembourgish"]],["Madagascar",["French","Malagasy"]],["Malawi",["English","Nyanja"]],["Malaysia",["Malay"]],["Maldives",["Dhivehi"]],["Mali",["French"]],["Malta",["Maltese","English"]],["Marshall Islands",["English","Marshallese"]],["Mauritania",["Arabic"]],["Mauritius",["English"]],["Mexico",["Spanish"]],["Micronesia",["English"]],["Moldova",["Romanian"]],["Monaco",["French"]],["Mongolia",["Mongolian"]],["Montenegro",["Montenegrin"]],["Morocco",["Arabic"]],["Mozambique",["Portuguese"]],["Myanmar",["Burmese"]],["Namibia",["English","Afrikaans"]],["Nauru",["English","Nauru"]],["Nepal",["Nepali (macrolanguage)"]],["Netherlands",["Dutch"]],["New Zealand",["English","Māori","New Zealand Sign Language"]],["Nicaragua",["Spanish"]],["Niger",["French"]],["Nigeria",["English"]],["North Korea",["Korean"]],["North Macedonia",["Macedonian"]],["Norway",["Norwegian","Norwegian Bokmål","Norwegian Nynorsk"]],["Oman",["Arabic"]],["Pakistan",["Urdu","English"]],["Palau",["English"]],["Palestine",["Arabic"]],["Panama",["Spanish"]],["Papua New Guinea",["English","Tok Pisin","Hiri Motu","Papua New Guinean Sign Language"]],["Paraguay",["Spanish","Guarani"]],["Peru",["Spanish"]],["Philippines",["English"]],["Poland",["Polish"]],["Portugal",["Portuguese"]],["Qatar",["Arabic"]],["Romania",["Romanian"]],["Russia",["Russian"]],["Rwanda",["Kinyarwanda","English","French","Swahili"]],["Saint Kitts and Nevis",["English"]],["Saint Lucia",["English"]],["Saint Vincent and the Grenadines",["English"]],["Samoa",["Samoan","English"]],["San Marino",["Italian"]],["Sao Tome and Principe",["Portuguese"]],["Saudi Arabia",["Arabic"]],["Senegal",["French"]],["Serbia",["Serbian"]],["Seychelles",["French","English"]],["Sierra Leone",["English"]],["Singapore",["English","Malay","Mandarin Chinese","Tamil"]],["Slovakia",["Slovak"]],["Slovenia",["Slovenian"]],["Solomon Islands",["English"]],["Somalia",["Somali","Arabic"]],["South Africa",["Afrikaans","English","isiNdebele","isiXhosa","isiZulu","Sepedi","Sesotho","Setswana","siSwati","Tshivenda","Xitsonga","South African Sign Language"]],["South Korea",["Korean"]],["South Sudan",["English"]],["Spain",["Spanish"]],["Sri Lanka",["Sinhala","Tamil"]],["Sudan",["Arabic","English"]],["Suriname",["Dutch"]],["Sweden",["Swedish"]],["Switzerland",["German","French","Italian","Romansh"]],["Syria",["Arabic"]],["Tajikistan",["Tajik","Russian"]],["Tanzania",["Swahili (macrolanguage)","English"]],["Thailand",["Thai"]],["Timor-Leste",["Tetum","Portuguese"]],["Togo",["French"]],["Tonga",["English","Tonga (Tonga Islands)"]],["Trinidad and Tobago",["English"]],["Tunisia",["Arabic"]],["Türkiye",["Turkish"]],["Turkmenistan",["Turkmen","Russian"]],["Tuvalu",["English"]],["Uganda",["English","Swahili (macrolanguage)"]],["Ukraine",["Ukrainian"]],["United Arab Emirates",["Arabic"]],["United Kingdom",["English"]],["United States",["English"]],["Uruguay",["Spanish"]],["Uzbekistan",["Uzbek","Russian"]],["Vanuatu",["Bislama","English","French"]],["Vatican City",["Italian","Latin"]],["Venezuela",["Spanish"]],["Vietnam",["Vietnamese"]],["Yemen",["Arabic"]],["Zambia",["English"]],["Zimbabwe",["Chewa","Chibarwe","English","Kalanga","Khoisan","Nambya","Ndebele","Shangani","Shona","Sotho","Tonga","Tswana","Venda","Xhosa","Zimbabwean Sign Language"]]];
-// Searchable country and language selectors. The language list contains every
-// language represented in the country data, plus English as a selectable option
-// for every country (this does not claim English is an official local language).
-const additionalLanguages=[
- "Akan","Afar","Akan (Twi)","Aklanon","Alur","Balinese","Bambara","Basque","Bikol","Breton","Cantonese","Cebuano","Chavacano","Cornish","Corsican","Dagaare","Dari","Dholuo","Edo","Ewe","Faroese","Fijian Hindi","Fon","Fulfulde","Ga","Galician","Greenlandic","Hausa","Hmong","Igbo","Ilocano","Javanese","Kabyle","Kalenjin","Kannada (regional varieties)","Karen","Kashubian","Kikuyu","K'iche'","Krio","Ladino","Luganda","Madurese","Maithili (regional varieties)","Malayalam (regional varieties)","Mandinka","Mapudungun","Maya languages","Minangkabau","Mixtec","Nahuatl","Ndebele (Northern)","Oromo","Pangasinan","Quechua (regional varieties)","Romani","Sami","Sardinian","Shan","Sicilian","Sundanese","Tachelhit","Tagalog","Tamazight","Tatar","Tibetan","Tigré","Tiv","Twi","Uyghur","Wolof","Wu Chinese","Yoruba","Zapotec","Zulu"
+/* --------------------------------------------------
+   SUPABASE CONFIGURATION
+   Add your own project URL and publishable key.
+   Never put a Supabase service-role key here.
+-------------------------------------------------- */
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+/* Country names are generated from standard country codes. */
+const countryCodes = (
+"AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ " +
+"BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ " +
+"CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ " +
+"DE DJ DK DM DO DZ " +
+"EC EE EG EH ER ES ET " +
+"FI FJ FK FM FO FR " +
+"GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY " +
+"HK HM HN HR HT HU " +
+"ID IE IL IM IN IO IQ IR IS IT " +
+"JE JM JO JP " +
+"KE KG KH KI KM KN KP KR KW KY KZ " +
+"LA LB LC LI LK LR LS LT LU LV LY " +
+"MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ " +
+"NA NC NE NF NG NI NL NO NP NR NU NZ " +
+"OM " +
+"PA PE PF PG PH PK PL PM PN PR PS PT PW PY " +
+"QA " +
+"RE RO RS RU RW " +
+"SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ " +
+"TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ " +
+"UA UG UM US UY UZ " +
+"VA VC VE VG VI VN VU " +
+"WF WS " +
+"YE YT " +
+"ZA ZM ZW"
+).trim().split(/\s+/);
+
+const regionNames = new Intl.DisplayNames(["en"], {type:"region"});
+const countries = [...new Set(countryCodes)]
+  .map(code => ({code, name:regionNames.of(code)}))
+  .filter(item => item.name && item.name !== item.code)
+  .sort((a,b) => a.name.localeCompare(b.name));
+
+function populateCountries(){
+  ["welcomeCountry","profileCountry"].forEach(id=>{
+    const select=document.getElementById(id);
+    countries.forEach(country=>{
+      const option=document.createElement("option");
+      option.value=country.name;
+      option.textContent=country.name;
+      select.appendChild(option);
+    });
+  });
+}
+
+/* The 20 skills shown in your original layout. */
+const skills = [
+ {id:"typing",name:"Typing Practice",description:"Improve your typing speed and accuracy.",level:"beginner",prompt:"Practise typing this sentence accurately:",task:"Learning a little every day can make a big difference."},
+ {id:"vocabulary",name:"Vocabulary Quiz",description:"Learn and practise new English words.",level:"beginner",prompt:"What does the word 'curious' mean?",task:"Wanting to know or learn something."},
+ {id:"memory",name:"Memory Matching",description:"Train your memory by matching pairs.",level:"beginner",prompt:"Remember these words, then try to repeat them:",task:"River · Window · Garden · Pencil"},
+ {id:"maths",name:"Maths Practice",description:"Solve quick maths questions.",level:"beginner",prompt:"Solve this maths question:",task:"24 + 18 = ?"},
+ {id:"logic",name:"Logic Puzzles",description:"Use logic to solve problems.",level:"intermediate",prompt:"A pattern starts 2, 4, 8, 16. What comes next?",task:"Think about how each number changes."},
+ {id:"grammar",name:"Grammar Practice",description:"Practise English grammar.",level:"beginner",prompt:"Choose the correct sentence:",task:"She goes to school. / She go to school."},
+ {id:"reading",name:"Reading Skills",description:"Read carefully and answer questions.",level:"intermediate",prompt:"Read this passage and write its main idea:",task:"Mina planted seeds in a small pot. She watered them every morning. After several days, green leaves appeared."},
+ {id:"reaction",name:"Reaction Practice",description:"Test your reaction time.",level:"beginner",prompt:"Reaction practice:",task:"Read the instruction carefully, then press Finish when ready."},
+ {id:"observation",name:"Observation Skills",description:"Notice details and differences.",level:"intermediate",prompt:"Study these details and identify the different item:",task:"Apple · Banana · Orange · Carrot · Mango"},
+ {id:"digital",name:"Digital Skills",description:"Learn useful computer basics.",level:"beginner",prompt:"What is the purpose of a web browser?",task:"Write your answer in your own words."},
+ {id:"critical",name:"Critical Thinking",description:"Think carefully and evaluate ideas.",level:"advanced",prompt:"Evaluate this statement:",task:"Everyone should believe something just because it is popular. Do you agree or disagree? Explain why."},
+ {id:"numbers",name:"Number Patterns",description:"Find missing numbers in patterns.",level:"intermediate",prompt:"Find the missing number:",task:"5, 10, 15, 20, __"},
+ {id:"knowledge",name:"General Knowledge",description:"Explore facts about the world.",level:"beginner",prompt:"General knowledge question:",task:"Which planet is known as the Red Planet?"},
+ {id:"patterns",name:"Pattern Recognition",description:"Recognise visual and number patterns.",level:"intermediate",prompt:"Continue the pattern:",task:"A, B, A, B, A, __"},
+ {id:"spelling",name:"Spelling Practice",description:"Practise spelling common words.",level:"beginner",prompt:"Type the correct spelling of this word:",task:"The word means 'something beautiful': beautifull / beautiful"},
+ {id:"colour",name:"Colour Memory",description:"Remember and identify colours.",level:"beginner",prompt:"Colour memory:",task:"Remember this sequence: Red, Blue, Green, Yellow. Try to repeat it without looking."},
+ {id:"story",name:"Story Building",description:"Create a story from simple prompts.",level:"intermediate",prompt:"Create a short story using these three words:",task:"Mountain · Key · Journey"},
+ {id:"coding",name:"Coding Basics",description:"Learn the basics of programming.",level:"beginner",prompt:"What does HTML help create?",task:"Write a short answer."},
+ {id:"communication",name:"Communication Skills",description:"Practise clear communication.",level:"intermediate",prompt:"Explain this idea in two or three sentences:",task:"Why is listening important during a conversation?"},
+ {id:"attention",name:"Attention to Detail",description:"Look closely and find small details.",level:"advanced",prompt:"Find the word that is different:",task:"practice · practice · practise · practice"}
 ];
-const allLanguages=[...new Set(countryData.flatMap(([,langs])=>langs).filter(x=>x && !/^and \d+ other/.test(x)).concat(additionalLanguages,"English"))].sort((a,b)=>a.localeCompare(b));
-function populateCountrySelect(selectId, selected){
- const el=$(selectId); if(!el)return;
- el.innerHTML='<option value="">Choose your country</option>'+countryData.map(([country])=>`<option value="${country}">${country}</option>`).join('');
- el._allOptions=Array.from(el.options).map(o=>({value:o.value,text:o.text}));
- if(selected)el.value=selected;
-}
-function populateLanguageSelect(selectId, country, selected){
- const el=$(selectId); if(!el)return;
- const record=countryData.find(x=>x[0]===country);
- const local=record?record[1].filter(x=>x && !/^and \d+ other/.test(x)):[];
- const ordered=[...new Set([...local,"English",...allLanguages])];
- el.innerHTML=ordered.map(x=>`<option value="${x}">${x}</option>`).join('');
- el._allOptions=Array.from(el.options).map(o=>({value:o.value,text:o.text}));
- if(selected && ordered.includes(selected))el.value=selected;
- else if(local.length)el.value=local[0];
- else el.value="English";
-}
-function updateCountryLanguages(countryId, languageId, infoId){
- const country=$(countryId)?.value; const record=countryData.find(x=>x[0]===country);
- const lang=$(languageId), info=$(infoId); if(!lang||!info)return;
- const previous=lang.value;
- populateLanguageSelect(languageId,country,previous);
- const langs=record?record[1].filter(x=>x && !/^and \d+ other/.test(x)):[];
- info.textContent=record?'Languages listed for '+country+': '+langs.join(', ')+(langs.includes('English')?'':'. English is also available as a preferred-language option.'):'Choose a country to see its associated languages. All listed languages remain searchable.';
-}
-function bindSearch(searchId, selectId){
- const search=$(searchId), select=$(selectId); if(!search||!select)return;
- search.addEventListener('input',()=>{
-  const query=search.value.trim().toLocaleLowerCase();
-  const current=select.value;
-  const source=select._allOptions||Array.from(select.options).map(o=>({value:o.value,text:o.text}));
-  const matches=source.filter(o=>!query || o.text.toLocaleLowerCase().includes(query));
-  select.innerHTML=matches.map(o=>`<option value="${o.value}">${o.text}</option>`).join('');
-  if(matches.some(o=>o.value===current))select.value=current;
- });
- search.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const first=Array.from(select.options).find(o=>o.value&&!o.hidden);if(first){select.value=first.value;select.dispatchEvent(new Event('change'));}}});
-}
-function bindSearchRefresh(searchId,selectId){
- const search=$(searchId); if(search && search.value){search.dispatchEvent(new Event('input'));}
-}
-const skills=[
-[1,"Typing Practice","Improve your typing speed and accuracy.","beginner"],
-[2,"Vocabulary Quiz","Learn and practise new English words.","beginner"],
-[3,"Memory Matching","Train your memory by matching pairs.","beginner"],
-[4,"Maths Practice","Solve quick maths questions.","beginner"],
-[5,"Logic Puzzles","Use logic to solve problems.","intermediate"],
-[6,"Grammar Practice","Practise English grammar.","beginner"],
-[7,"Reading Skills","Read carefully and answer questions.","intermediate"],
-[8,"Reaction Practice","Test your reaction time.","beginner"],
-[9,"Observation Skills","Notice details and differences.","intermediate"],
-[10,"Digital Skills","Learn useful computer basics.","beginner"],
-[11,"Critical Thinking","Think carefully and evaluate ideas.","advanced"],
-[12,"Number Patterns","Find missing numbers in patterns.","intermediate"],
-[13,"General Knowledge","Explore facts about the world.","beginner"],
-[14,"Pattern Recognition","Recognise visual and number patterns.","intermediate"],
-[15,"Spelling Practice","Practise spelling common words.","beginner"],
-[16,"Colour Memory","Remember and identify colours.","beginner"],
-[17,"Story Building","Create a story from simple prompts.","intermediate"],
-[18,"Coding Basics","Learn the basics of programming.","beginner"],
-[19,"Communication Skills","Practise clear communication.","intermediate"],
-[20,"Attention to Detail","Look closely and find small details.","advanced"]
-].map(s=>({id:s[0],name:s[1],desc:s[2],level:s[3]}));
 
-let data={};
-try{data=JSON.parse(localStorage.getItem("iymdriSkillPractice")||"{}")}catch(e){}
-// One-time profile refresh for this release: ask the user to enter the current
-// display name again, while preserving saved scores, history, favourites and notes.
-const APP_VERSION="2026-10-30-profile-refresh";
-if(data.appVersion!==APP_VERSION){
- data.name="";
- data.country="";
- data.countryLanguage="";
- data.profileComplete=false;
- data.appVersion=APP_VERSION;
- try{localStorage.setItem("iymdriSkillPractice",JSON.stringify(data))}catch(e){}
-}
-data.completed=data.completed||0;
-data.score=data.score||0;
-data.days=data.days||[];
-data.bestWpm=data.bestWpm||0;
-data.progress=data.progress||{};
-data.favourites=data.favourites||[];
-data.recent=data.recent||[];
-data.history=data.history||[];
-data.localVisits=data.localVisits||0;
-let libraryMode="all",currentSkill=null,typingTimer=null,typingStart=0,reactionStart=0;
-let memoryCards=[],memoryFirst=null,memoryMatches=0,memoryLock=false;
-
-const $=id=>document.getElementById(id);
-function save(){localStorage.setItem("iymdriSkillPractice",JSON.stringify(data))}
-function toast(message){$("toast").textContent=message;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
-function enterWebsite(){
- data.name=$("newName").value.trim();
- data.profileComplete=true;
- data.country=$("newCountry").value;
- data.countryLanguage=$("newLanguage").value;
- data.localVisits++;
- save();
- $("welcome").classList.add("hidden");
- $("navigation").classList.remove("hidden");
- updateHeader();
- applyTheme();
- showPage("home");
-}
-function updateHeader(){$("hello").textContent=data.name?"Hello, "+data.name:""}
-function showPage(page){
- clearInterval(typingTimer);
- document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
- $(page).classList.remove("hidden");
- document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="home")renderSkills();
- if(page==="library")renderLibrary();
- if(page==="dashboard")renderDashboard();
- if(page==="profile")loadProfile();
- if(page==="settings")loadSettings();
-}
-document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-
-function makeCard(s){
- let count=data.progress[s.id]||0;
- let fav=data.favourites.includes(s.id);
- return `<article class="skill-card">
- <h3>${s.name}</h3><p class="muted">${s.desc}</p>
- <span class="tag">${s.level}</span>
- <div class="progress"><span style="width:${Math.min(count*10,100)}%"></span></div>
- <p class="muted">Practised ${count} time(s)</p>
- <div class="row">
- <button onclick="startSkill(${s.id})">Start</button>
- <button class="secondary" onclick="toggleFavourite(${s.id})">${fav?"★ Saved":"☆ Favourite"}</button>
- </div></article>`;
-}
-function renderSkills(){
- let q=$("searchHome").value.toLowerCase(),level=$("levelHome").value;
- let list=skills.filter(s=>(s.name+" "+s.desc).toLowerCase().includes(q)&&(level==="all"||s.level===level));
- $("skillGrid").innerHTML=list.map(makeCard).join("")||"<p>No skills found.</p>";
-}
-function renderLibrary(){
- let q=$("searchLibrary").value.toLowerCase(),level=$("levelLibrary").value;
- let list=skills.filter(s=>(s.name+" "+s.desc).toLowerCase().includes(q)&&(level==="all"||s.level===level));
- if(libraryMode==="favourites")list=list.filter(s=>data.favourites.includes(s.id));
- if(libraryMode==="recent")list=list.filter(s=>data.recent.includes(s.id)).sort((a,b)=>data.recent.indexOf(a.id)-data.recent.indexOf(b.id));
- $("libraryGrid").innerHTML=list.map(makeCard).join("")||"<p>No skills found in this section.</p>";
-}
-function toggleFavourite(id){
- data.favourites=data.favourites.includes(id)?data.favourites.filter(x=>x!==id):[...data.favourites,id];
- save();renderSkills();renderLibrary();
-}
-
-const questions={
-2:[["What does rapid mean?",["Fast","Slow","Quiet"],0],["What is the opposite of ancient?",["Old","Modern","Past"],1]],
-4:[["What is 12 × 8?",["86","96","108"],1],["What is 144 ÷ 12?",["12","14","16"],0]],
-5:[["If all roses are flowers, are all flowers roses?",["Yes","No","Maybe"],1]],
-6:[["Choose the correct sentence.",["She go to school.","She goes to school.","She going school."],1]],
-7:[["Reading carefully helps you to...",["Understand information","Forget everything","Skip words"],0]],
-9:[["Which item is different?",["Circle","Square","Apple"],2]],
-10:[["Which one is an input device?",["Keyboard","Monitor","Speaker"],0]],
-11:[["How should you check a claim?",["Believe it immediately","Look for reliable evidence","Ignore facts"],1]],
-12:[["What comes next: 2, 4, 6, 8...?",["9","10","12"],1]],
-13:[["Which planet is called the Red Planet?",["Venus","Mars","Jupiter"],1]],
-14:[["What comes next: circle, square, circle, square...?",["Circle","Triangle","Star"],0]],
-15:[["Choose the correct spelling.",["Beautifull","Beautiful","Beutiful"],1]],
-17:[["A good story usually has...",["Characters and events","Only random letters","No ideas"],0]],
-18:[["HTML is mainly used to...",["Structure web pages","Wash clothes","Edit photos"],0]],
-19:[["Good communication includes...",["Listening carefully","Interrupting","Ignoring others"],0]],
-20:[["Which one is different?",["Book","Book","Boot"],2]]
+const defaultData = {
+  profile:{name:"",country:""},
+  theme:"theme-original",
+  favourites:[],
+  counts:{},
+  history:[],
+  notes:""
 };
 
-function startSkill(id){
- currentSkill=skills.find(s=>s.id===id);
- data.recent=[id,...data.recent.filter(x=>x!==id)].slice(0,10);
- save();
- showPage("activity");
- $("activityTitle").textContent=currentSkill.name;
- $("activityDescription").textContent=currentSkill.desc;
- buildActivity(id);
+let data = loadData();
+let activeSkill = null;
+
+function loadData(){
+  try{
+    const saved=JSON.parse(localStorage.getItem("iymdriSkillPractice"));
+    return saved ? {...structuredClone(defaultData),...saved,
+      profile:{...defaultData.profile,...saved.profile},
+      counts:saved.counts||{},
+      favourites:saved.favourites||[],
+      history:saved.history||[]
+    } : structuredClone(defaultData);
+  }catch(e){return structuredClone(defaultData)}
 }
-function goHome(){showPage("home")}
-function buildActivity(id){
- let area=$("activityArea");
- if(id===1)buildTyping(area);
- else if(id===3)buildMemory(area);
- else if(id===8)buildReaction(area);
- else if(id===16)buildColour(area);
- else if(id===17)buildStory(area);
- else buildQuiz(area,id);
+function saveData(){
+  localStorage.setItem("iymdriSkillPractice",JSON.stringify(data));
 }
-function buildQuiz(area,id){
- let list=questions[id]||[["Which choice helps you learn?",["Practise regularly","Never try","Give up"],0]];
- let index=0,points=0;
- function showQuestion(){
-  if(index>=list.length){
-   area.innerHTML=`<h3>Finished!</h3><p>Your score: ${points} / ${list.length}</p><button onclick="finishActivity(${points*10})">Save results</button>`;
-   return;
+function showWelcome(){
+  document.getElementById("welcomeScreen").classList.remove("hidden");
+  document.getElementById("website").classList.add("hidden");
+}
+function showWebsite(){
+  document.getElementById("welcomeScreen").classList.add("hidden");
+  document.getElementById("website").classList.remove("hidden");
+  applyTheme(data.theme);
+  renderAll();
+}
+function getStarted(){
+  const name=document.getElementById("welcomeName").value.trim();
+  const country=document.getElementById("welcomeCountry").value;
+  if(!name || !country){
+    alert("Please enter your display name and select your country.");
+    return;
   }
-  let q=list[index];
-  area.innerHTML=`<p>Question ${index+1} of ${list.length}</p><h3>${q[0]}</h3><div class="grid">${q[1].map((v,i)=>`<button class="secondary" onclick="chooseAnswer(${i})">${v}</button>`).join("")}</div>`;
- }
- window.chooseAnswer=choice=>{if(choice===list[index][2])points++;index++;showQuestion()};
- showQuestion();
-}
-function finishActivity(points){
- recordActivity(points);
- $("activityArea").innerHTML=`<h3>Results saved!</h3><p>You earned ${points} points.</p><button onclick="goHome()">Back to skills</button>`;
-}
-function buildTyping(area){
- let sentence="Learning a little every day can help you build useful skills.";
- area.innerHTML=`<h3>Type this sentence</h3><p class="stat">${sentence}</p>
- <textarea id="typingInput" rows="3" placeholder="Type here..." disabled></textarea>
- <p id="typingTime">Timer: ${Number(data.timerLength)||60} seconds</p>
- <div class="row"><button onclick="startTyping()">Start timer</button><button class="secondary" onclick="finishTyping()">Finish</button></div>`;
-}
-function startTyping(){
- clearInterval(typingTimer);
- let left=Math.max(10,Math.min(300,Number(data.timerLength)||60));
- typingStart=Date.now();
- $("typingInput").disabled=false;
- $("typingInput").focus();
- $("typingTime").textContent="Timer: "+left+" seconds";
- typingTimer=setInterval(()=>{
-  left--;
-  if($("typingTime"))$("typingTime").textContent="Timer: "+left+" seconds";
-  if(left<=0)finishTyping();
- },1000);
-}
-function finishTyping(){
- if(!$("typingInput"))return;
- clearInterval(typingTimer);
- let words=$("typingInput").value.trim().split(/\s+/).filter(Boolean).length;
- let elapsed=typingStart?Math.max(1,(Date.now()-typingStart)/60000):1;
- let speed=Math.round(words/elapsed);
- data.bestWpm=Math.max(data.bestWpm,speed);
- recordActivity(Math.min(100,speed));
- $("activityArea").innerHTML=`<h3>Typing finished!</h3><p>Words typed: ${words}</p><p>Your speed: ${speed} WPM</p><button onclick="goHome()">Back to skills</button>`;
-}
-function buildMemory(area){
- memoryCards=["A","B","C","D","A","B","C","D"].sort(()=>Math.random()-.5);
- memoryFirst=null;memoryMatches=0;memoryLock=false;
- area.innerHTML=`<p>Find all matching pairs.</p><div class="grid" id="memoryGrid">${memoryCards.map((v,i)=>`<button class="secondary" id="mem${i}" onclick="flipMemory(${i})">?</button>`).join("")}</div><p id="memoryStatus">Pairs found: 0 / 4</p>`;
-}
-function flipMemory(i){
- if(memoryLock||$("mem"+i).textContent!=="?")return;
- $("mem"+i).textContent=memoryCards[i];
- if(memoryFirst===null){memoryFirst=i;return}
- let first=memoryFirst;memoryFirst=null;
- if(memoryCards[first]===memoryCards[i]){
-  memoryMatches++;
-  $("memoryStatus").textContent="Pairs found: "+memoryMatches+" / 4";
-  if(memoryMatches===4){
-   recordActivity(40);
-   $("memoryStatus").textContent="All pairs found! Results saved.";
-  }
- }else{
-  memoryLock=true;
-  setTimeout(()=>{$("mem"+first).textContent="?";$("mem"+i).textContent="?";memoryLock=false},700);
- }
-}
-function buildReaction(area){
- area.innerHTML=`<p>Wait for the button to turn green, then click it.</p><button id="reactionButton" class="secondary" onclick="reactionClick()">Wait...</button><p id="reactionResult"></p>`;
- reactionStart=0;
- setTimeout(()=>{
-  if($("reactionButton")){
-   $("reactionButton").style.background="#23834c";
-   $("reactionButton").textContent="CLICK NOW";
-   reactionStart=Date.now();
-  }
- },1500+Math.random()*2500);
-}
-function reactionClick(){
- if(!reactionStart){$("reactionResult").textContent="Wait until the button turns green.";return}
- let time=Date.now()-reactionStart;reactionStart=0;
- $("reactionResult").textContent="Your reaction time: "+time+" ms";
- recordActivity(Math.max(0,100-Math.round(time/10)));
-}
-function buildColour(area){
- let colours=["red","blue","green","yellow"];
- let answer=colours[Math.floor(Math.random()*colours.length)];
- area.innerHTML=`<p>Remember this colour:</p><div id="colourBox" style="height:90px;background:${answer};border-radius:12px;margin:12px 0"></div><button onclick="showColourChoices('${answer}')">I remembered</button>`;
-}
-function showColourChoices(answer){
- $("colourBox").classList.add("hidden");
- $("activityArea").insertAdjacentHTML("beforeend",`<p>Which colour did you see?</p><div class="row">${["red","blue","green","yellow"].map(c=>`<button class="secondary" onclick="colourAnswer('${c}','${answer}')">${c}</button>`).join("")}</div>`);
-}
-function colourAnswer(choice,answer){
- let correct=choice===answer;
- recordActivity(correct?100:0);
- $("activityArea").insertAdjacentHTML("beforeend",`<p>${correct?"Correct!":"Good try! The colour was "+answer+"."}</p><button onclick="goHome()">Back to skills</button>`);
-}
-function buildStory(area){
- area.innerHTML=`<h3>Story Building</h3><p>Write a short story using these three words:</p><p class="stat">Garden · Key · Surprise</p><textarea id="storyText" rows="5" placeholder="Write your story here..."></textarea><button onclick="saveStory()">Save story</button>`;
-}
-function saveStory(){
- if(!$("storyText").value.trim()){toast("Write your story first.");return}
- recordActivity(20);
- $("activityArea").innerHTML=`<h3>Story saved!</h3><p>Your writing practice has been recorded.</p><button onclick="goHome()">Back to skills</button>`;
-}
-function recordActivity(points){
- data.completed++;
- data.score+=points;
- let today=new Date().toISOString().slice(0,10);
- if(!data.days.includes(today))data.days.push(today);
- if(currentSkill)data.progress[currentSkill.id]=(data.progress[currentSkill.id]||0)+1;
- data.history.unshift({name:currentSkill?currentSkill.name:"Practice",points,date:today});
- data.history=data.history.slice(0,30);
- save();
- toast("Progress saved!");
-}
-function renderDashboard(){
- $("completed").textContent=data.completed;
- $("score").textContent=data.score;
- $("days").textContent=data.days.length;
- $("wpm").textContent=data.bestWpm;
- $("progressList").innerHTML=skills.map(s=>`<p>${s.name} — ${data.progress[s.id]||0} practice(s)</p><div class="progress"><span style="width:${Math.min((data.progress[s.id]||0)*10,100)}%"></span></div>`).join("");
- $("achievements").innerHTML=data.completed>=10?"<span class='tag'>10 activities completed</span>":data.completed>=5?"<span class='tag'>5 activities completed</span>":data.completed>=1?"<span class='tag'>First activity completed</span>":"No achievements yet.";
- $("historyList").innerHTML=data.history.length?data.history.map(h=>`<p>${h.name} — ${h.points} points <span class="muted">${h.date}</span></p>`).join(""):"No activities yet.";
-}
-function loadProfile(){
- $("profileName").value=data.name||"";
- populateCountrySelect("profileCountry",data.country||"India");
- updateCountryLanguages("profileCountry","profileLanguage","profileLanguageInfo");
- if(data.countryLanguage && Array.from($("profileLanguage").options).some(o=>o.value===data.countryLanguage)) $("profileLanguage").value=data.countryLanguage;
+  data.profile={name,country};
+  saveData();
+  showWebsite();
 }
 function saveProfile(){
- data.name=$("profileName").value.trim();
- data.profileComplete=true;
- data.country=$("profileCountry").value;
- data.countryLanguage=$("profileLanguage").value;
- save();updateHeader();toast("Profile saved!");
+  const name=document.getElementById("profileName").value.trim();
+  const country=document.getElementById("profileCountry").value;
+  if(!name || !country){
+    document.getElementById("profileMessage").textContent="Please complete both fields.";
+    return;
+  }
+  data.profile={name,country};
+  saveData();
+  document.getElementById("profileMessage").textContent="Profile saved successfully.";
 }
-function loadSettings(){
- $("difficulty").value=data.difficulty||"beginner";
- $("challengeMode").value=data.challengeMode||"normal";
- $("timerLength").value=data.timerLength||60;
- $("largeText").checked=!!data.largeText;
- $("language").value=data.language||"en";
- $("notes").value=data.notes||"";
- $("visits").textContent=data.localVisits||1;
-}
-function saveSettings(){
- data.difficulty=$("difficulty").value;
- data.challengeMode=$("challengeMode").value;
- data.timerLength=$("timerLength").value;
- data.largeText=$("largeText").checked;
- data.language=$("language").value;
- document.body.style.fontSize=data.largeText?"18px":"16px";
- save();toast("Settings saved!");
-}
-function saveNotes(){
- data.notes=$("notes").value;save();toast("Notes saved!");
+function switchTab(tab){
+  ["home","library","dashboard","profile","settings"].forEach(name=>{
+    document.getElementById(name+"Page").classList.toggle("hidden",name!==tab);
+  });
+  document.querySelectorAll(".nav-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.tab===tab);
+  });
+  if(tab==="library")renderAll();
+  if(tab==="dashboard")renderDashboard();
+  if(tab==="profile"){
+    document.getElementById("profileName").value=data.profile.name;
+    document.getElementById("profileCountry").value=data.profile.country;
+  }
+  if(tab==="settings")document.getElementById("themeSelect").value=data.theme;
 }
 function setTheme(theme){
- data.theme=theme;applyTheme();save();toast("Theme changed!");
+  const allowed=["theme-original","theme-navy","theme-dark","theme-cute-pastel"];
+  data.theme=allowed.includes(theme)?theme:"theme-original";
+  saveData();
+  applyTheme(data.theme);
 }
-function setPastel(colour){
- data.pastel=colour;data.theme="pastel";applyTheme();save();toast("Pastel colour selected!");
+function applyTheme(theme){
+  document.body.classList.remove("theme-navy","theme-dark","theme-cute-pastel");
+  if(theme!=="theme-original")document.body.classList.add(theme);
 }
-function applyTheme(){
- document.body.classList.remove("dark","pastel");
- if(data.theme==="dark")document.body.classList.add("dark");
- if(data.theme==="pastel"){
-  document.body.classList.add("pastel");
-  document.body.dataset.colour=data.pastel||"pink";
- }
+
+/* Skill cards */
+function createSkillCard(skill){
+  const count=data.counts[skill.id]||0;
+  const favourite=data.favourites.includes(skill.id);
+  const card=document.createElement("article");
+  card.className="skill-card";
+
+  const title=document.createElement("h3");
+  title.textContent=skill.name;
+  const description=document.createElement("p");
+  description.textContent=skill.description;
+  const level=document.createElement("span");
+  level.className="difficulty";
+  level.textContent=skill.level;
+  const practised=document.createElement("div");
+  practised.className="practice-count";
+  practised.textContent=`Practised ${count} time(s)`;
+
+  const actions=document.createElement("div");
+  actions.className="card-actions";
+  const start=document.createElement("button");
+  start.className="primary-btn";
+  start.textContent="Start";
+  start.onclick=()=>startPractice(skill.id);
+  const fav=document.createElement("button");
+  fav.className="favourite-btn"+(favourite?" selected":"");
+  fav.textContent=favourite?"★ Favourite":"☆ Favourite";
+  fav.setAttribute("aria-pressed",String(favourite));
+  fav.onclick=()=>toggleFavourite(skill.id);
+
+  actions.append(start,fav);
+  card.append(title,description,level,practised,actions);
+  return card;
 }
-function resetProgress(){
- if(!confirm("Are you sure you want to reset your practice progress?"))return;
- data.completed=0;data.score=0;data.days=[];data.bestWpm=0;
- data.progress={};data.favourites=[];data.recent=[];data.history=[];
- save();renderDashboard();toast("Progress reset!");
+function renderSkills(section){
+  const search=document.getElementById(section==="home"?"homeSearch":"librarySearch").value.toLowerCase().trim();
+  const difficulty=document.getElementById(section==="home"?"homeDifficulty":"libraryDifficulty").value;
+  const target=document.getElementById(section==="home"?"homeSkills":"librarySkills");
+  target.replaceChildren();
+
+  const filtered=skills.filter(skill=>{
+    const matchesText=(skill.name+" "+skill.description).toLowerCase().includes(search);
+    const matchesDifficulty=difficulty==="all"||skill.level===difficulty;
+    return matchesText&&matchesDifficulty;
+  });
+  if(!filtered.length){
+    target.innerHTML='<p class="empty">No skills found. Try another search.</p>';
+    return;
+  }
+  filtered.forEach(skill=>target.appendChild(createSkillCard(skill)));
 }
-function init(){
- // Build the country menus after the country data and page elements are ready.
- populateCountrySelect("newCountry",data.country||"");
- populateCountrySelect("profileCountry",data.country||"India");
- updateCountryLanguages("newCountry","newLanguage","newLanguageInfo");
- updateCountryLanguages("profileCountry","profileLanguage","profileLanguageInfo");
- if(data.countryLanguage){$("newLanguage").value=data.countryLanguage;$("profileLanguage").value=data.countryLanguage;}
- bindSearch("newCountrySearch","newCountry");
- bindSearch("newLanguageSearch","newLanguage");
- bindSearch("profileCountrySearch","profileCountry");
- bindSearch("profileLanguageSearch","profileLanguage");
- $("newCountry").addEventListener("change",()=>{
-  updateCountryLanguages("newCountry","newLanguage","newLanguageInfo");
-  $("newLanguageSearch").value="";
-  bindSearchRefresh("newLanguageSearch","newLanguage");
-  data.country=$("newCountry").value;
-  data.countryLanguage=$("newLanguage").value;
- });
- $("profileCountry").addEventListener("change",()=>{
-  updateCountryLanguages("profileCountry","profileLanguage","profileLanguageInfo");
-  $("profileLanguageSearch").value="";
-  bindSearchRefresh("profileLanguageSearch","profileLanguage");
- });
- $("newLanguage").addEventListener("change",()=>data.countryLanguage=$("newLanguage").value);
- $("profileLanguage").addEventListener("change",()=>data.countryLanguage=$("profileLanguage").value);
- applyTheme();
- updateHeader();
- if(data.profileComplete===true){
-  $("welcome").classList.add("hidden");
-  $("navigation").classList.remove("hidden");
-  showPage("home");
- }else{
-  $("welcome").classList.remove("hidden");
-  $("navigation").classList.add("hidden");
- }
+function toggleFavourite(id){
+  if(data.favourites.includes(id)){
+    data.favourites=data.favourites.filter(item=>item!==id);
+  }else{
+    data.favourites.push(id);
+  }
+  saveData();
+  renderAll();
 }
-init();
+function renderLibraryExtras(){
+  const fav=document.getElementById("favouritesList");
+  fav.replaceChildren();
+  const favouriteSkills=skills.filter(skill=>data.favourites.includes(skill.id));
+  if(!favouriteSkills.length)fav.innerHTML='<p class="empty">You have not added any favourites yet.</p>';
+  favouriteSkills.forEach(skill=>{
+    const row=document.createElement("div");
+    row.className="list-row";
+    row.innerHTML=`<span>${escapeHTML(skill.name)}</span>`;
+    const button=document.createElement("button");
+    button.className="secondary-btn";
+    button.textContent="Start";
+    button.onclick=()=>startPractice(skill.id);
+    row.appendChild(button);fav.appendChild(row);
+  });
+
+  const recent=document.getElementById("recentList");
+  recent.replaceChildren();
+  const recentIds=[...new Set(data.history.map(item=>item.id))].slice(0,5);
+  if(!recentIds.length)recent.innerHTML='<p class="empty">Your recent activities will appear here.</p>';
+  recentIds.forEach(id=>{
+    const skill=skills.find(item=>item.id===id);
+    if(!skill)return;
+    const row=document.createElement("div");
+    row.className="list-row";
+    row.innerHTML=`<span>${escapeHTML(skill.name)}</span>`;
+    const button=document.createElement("button");
+    button.className="secondary-btn";button.textContent="Start";
+    button.onclick=()=>startPractice(skill.id);
+    row.appendChild(button);recent.appendChild(row);
+  });
+}
+function renderAll(){
+  renderSkills("home");
+  renderSkills("library");
+  renderLibraryExtras();
+  renderDashboard();
+}
+
+/* Practice activity */
+function startPractice(id){
+  const skill=skills.find(item=>item.id===id);
+  if(!skill)return;
+  activeSkill=skill;
+  document.getElementById("practiceTitle").textContent=skill.name;
+  document.getElementById("practiceDescription").textContent=skill.prompt;
+  const content=document.getElementById("practiceContent");
+  content.replaceChildren();
+
+  const task=document.createElement("div");
+  task.className="panel";
+  task.textContent=skill.task;
+  content.appendChild(task);
+
+  const label=document.createElement("label");
+  label.className="form-field";
+  label.textContent="Your answer or practice notes";
+  const answer=document.createElement("textarea");
+  answer.id="practiceAnswer";
+  answer.placeholder="Type your answer here...";
+  label.appendChild(answer);
+  content.appendChild(label);
+
+  document.getElementById("practiceMessage").textContent="";
+  document.getElementById("practiceModal").classList.remove("hidden");
+  answer.focus();
+}
+function closePractice(){
+  document.getElementById("practiceModal").classList.add("hidden");
+  activeSkill=null;
+}
+function completePractice(){
+  if(!activeSkill)return;
+  const answer=document.getElementById("practiceAnswer").value.trim();
+  if(!answer){
+    document.getElementById("practiceMessage").textContent="Add an answer or practice note before finishing.";
+    return;
+  }
+  const id=activeSkill.id;
+  data.counts[id]=(data.counts[id]||0)+1;
+  data.history.unshift({
+    id,
+    date:new Date().toISOString(),
+    answer:answer.slice(0,500)
+  });
+  data.history=data.history.slice(0,100);
+  saveData();
+  document.getElementById("practiceMessage").textContent="Practice session saved.";
+  renderAll();
+  setTimeout(closePractice,700);
+}
+
+/* Dashboard */
+function renderDashboard(){
+  const total=data.history.length;
+  const practiced=Object.keys(data.counts).filter(id=>data.counts[id]>0).length;
+  document.getElementById("statSessions").textContent=total;
+  document.getElementById("statSkills").textContent=practiced;
+  document.getElementById("statFavourites").textContent=data.favourites.length;
+
+  const progress=document.getElementById("progressList");
+  progress.replaceChildren();
+  skills.forEach(skill=>{
+    const count=data.counts[skill.id]||0;
+    const row=document.createElement("div");
+    row.style.marginBottom="17px";
+    const label=document.createElement("div");
+    label.className="list-row";
+    const name=document.createElement("strong");
+    name.textContent=skill.name;
+    const number=document.createElement("span");
+    number.className="small-text";
+    number.textContent=`${count} practice session(s)`;
+    label.append(name,number);
+    const track=document.createElement("div");
+    track.className="progress-track";
+    const fill=document.createElement("div");
+    fill.className="progress-fill";
+    fill.style.width=Math.min(count*10,100)+"%";
+    track.appendChild(fill);
+    row.append(label,track);
+    progress.appendChild(row);
+  });
+
+  const history=document.getElementById("historyList");
+  history.replaceChildren();
+  if(!data.history.length){
+    history.innerHTML='<p class="empty">Your practice history will appear here.</p>';
+  }else{
+    data.history.slice(0,20).forEach(item=>{
+      const skill=skills.find(s=>s.id===item.id);
+      const row=document.createElement("div");
+      row.className="list-row";
+      const left=document.createElement("div");
+      const name=document.createElement("strong");
+      name.textContent=skill?skill.name:"Practice";
+      const date=document.createElement("div");
+      date.className="small-text";
+      date.textContent=new Date(item.date).toLocaleString();
+      left.append(name,date);
+      row.appendChild(left);
+      history.appendChild(row);
+    });
+  }
+  document.getElementById("notes").value=data.notes||"";
+}
+function saveNotes(){
+  data.notes=document.getElementById("notes").value;
+  saveData();
+  document.getElementById("notesMessage").textContent="Notes saved.";
+}
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[char]));
+}
+function resetPersonalData(){
+  if(!confirm("Reset your profile, favourites, notes and practice history on this browser?"))return;
+  localStorage.removeItem("iymdriSkillPractice");
+  data=structuredClone(defaultData);
+  location.reload();
+}
+
+/* --------------------------------------------------
+   SHARED WORLDWIDE VISITOR COUNT
+-------------------------------------------------- */
+function supabaseConfigured(){
+  return SUPABASE_URL.startsWith("https://") &&
+    !SUPABASE_URL.includes("YOUR_SUPABASE") &&
+    SUPABASE_PUBLISHABLE_KEY &&
+    !SUPABASE_PUBLISHABLE_KEY.includes("YOUR_SUPABASE");
+}
+async function supabaseRPC(functionName){
+  const response=await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_PUBLISHABLE_KEY,
+        "Authorization":`Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+      },
+      body:"{}"
+    }
+  );
+  if(!response.ok)throw new Error("Database request failed");
+  return response.json();
+}
+async function recordWorldwideVisit(){
+  if(!supabaseConfigured()){
+    document.getElementById("visitorCount").textContent="Not connected";
+    document.getElementById("visitorMessage").textContent="Add your Supabase project details to activate the shared counter.";
+    return;
+  }
+  try{
+    await supabaseRPC("increment_site_visit");
+    await refreshVisitorCount();
+  }catch(error){
+    document.getElementById("visitorCount").textContent="Unavailable";
+    document.getElementById("visitorMessage").textContent="Could not connect to the visitor database.";
+  }
+}
+async function refreshVisitorCount(){
+  if(!supabaseConfigured()){
+    document.getElementById("visitorCount").textContent="Not connected";
+    return;
+  }
+  try{
+    const total=await supabaseRPC("get_site_visits");
+    document.getElementById("visitorCount").textContent=Number(total).toLocaleString();
+    document.getElementById("visitorMessage").textContent="Visitor statistics updated.";
+  }catch(error){
+    document.getElementById("visitorCount").textContent="Unavailable";
+    document.getElementById("visitorMessage").textContent="Could not load visitor statistics.";
+  }
+}
+
+/* Start the website */
+populateCountries();
+if(data.profile.name && data.profile.country){
+  showWebsite();
+}else{
+  showWelcome();
+}
 </script>
 </body>
 </html>
